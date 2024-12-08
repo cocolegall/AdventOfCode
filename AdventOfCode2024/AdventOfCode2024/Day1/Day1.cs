@@ -44,17 +44,31 @@ namespace AdventOfCode2024.Day1
             Array.Sort(arr1);
             Array.Sort(arr2);
             int N = arr1.Length;
+            Dictionary<int, int> repElem = new Dictionary<int, int>();
+            Dictionary<int, int> countElem = new Dictionary<int, int>();
             int[] res = new int[N];
             for(int i = 0; i < N; i++)
             {
                 int times = 0;
-                for(int j = 0; j < N; j++)
+                if (!repElem.ContainsKey(arr1[i]))
                 {
-                    if (arr1[i] == arr2[j]) times++;
+                    for (int j = 0; j < N; j++)
+                    {
+                        if (arr1[i] == arr2[j]) times++;
+                    }
+                    repElem.Add(arr1[i], times);
                 }
-                res[i] = times * arr1[i];
+                if (!countElem.ContainsKey(arr1[i]))
+                {
+                    countElem.Add(arr1[i], arr1.Count(s => s == arr1[i]));
+                }
             }
-            return res.Sum();
+
+            return repElem
+                .Where(kv => countElem.ContainsKey(kv.Key) && (countElem[kv.Key] != 0))
+                .Select(kv => (kv.Key * kv.Value) * countElem[kv.Key])
+                .ToList()
+                .Sum();
         }
     }
 }
