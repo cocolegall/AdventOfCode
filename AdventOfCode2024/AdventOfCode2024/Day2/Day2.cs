@@ -25,49 +25,12 @@ namespace AdventOfCode2024.Day2
         public int Solution(StreamReader rs)
         {
             var input = ReadLines(rs);
-            int res = 0;
-            for(int i = 0; i<input.Length; i++)
-            {
-                var stringLineContent = input[i].Split(" ");
-                int[] lineContent = new int[stringLineContent.Length];
-                for(int j = 0; j < stringLineContent.Length; j++)
-                {
-                    int.TryParse(stringLineContent[j], out lineContent[j]);
-                }
-                for(int j = 0;  j < lineContent.Length-1; j++)
-                {
-                    bool decreasing = false;
-                    bool increasing = false;
-                    if (lineContent[j].Equals(lineContent[j + 1]))
-                    {
-                        continue;
-                    }
-                    if (lineContent[j] < lineContent[j + 1])
-                    {
-                        increasing = true;
-                    }
-                    decreasing = true;
-                    if (increasing)
-                    {
-                        if (lineContent[j] > lineContent[j + 1])
-                        {
-                            continue;
-                        }
-                    }
-                    if (decreasing)
-                    {
-                        if (lineContent[j] < lineContent[j + 1])
-                        {
-                            continue;
-                        }
-                    }
-                    if (Math.Abs(lineContent[j] - lineContent[j + 1]) >= 5)
-                    {
-                        continue;
-                    }
-                    res++;
-                }
-            }
+            var res = input.Select(s => s.Split(" ")
+                .Select(v => int.Parse(v)).ToArray())
+                .Select(s => s.Zip(s.Skip(1),(a,b) => b-a).ToArray())
+                .Where(s => s.All(v => v>0) || s.All(v => v<0))
+                .Where(s => s.All(v => Math.Abs(v)<4) & s.All(v => v!=0))
+                .Count();
             return res;
         }
     }
