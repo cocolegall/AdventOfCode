@@ -1,13 +1,14 @@
 ﻿using AdventOfCode2024.Day1;
 using AdventOfCode2024.Day2;
+using AdventOfCode2024.Day3;
 class Program
 {
     static void Main(string[] args)
     {
-        string day = "Day2";
+        string day = "Day3";
         StreamReader sr = new StreamReader($"../../../{day}/input.txt");
-        Day2 day2 = new Day2();
-        var res = day2.Solution(sr);
+        Day3 day3 = new Day3();
+        var res = day3.Solution(sr);
         Console.WriteLine(res);
     }
 }
