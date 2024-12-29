@@ -8,7 +8,7 @@ class Program
         string day = "Day3";
         StreamReader sr = new StreamReader($"../../../{day}/input.txt");
         Day3 day3 = new Day3();
-        var res = day3.Solution(sr);
+        var res = day3.SolutionPart2(sr);
         Console.WriteLine(res);
     }
 }
