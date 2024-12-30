@@ -66,5 +66,53 @@ namespace AdventOfCode2024.Day4
             }
             return count;
         }
+
+        public async Task<int> SolutionPart2Async(StreamReader sr)
+        {
+            var input = await ReadLinesAsync(sr);
+            int count = 0;
+            string word = "MAS";
+            for (int i = 0; i < input.GetLength(0); i++)
+            {
+                for (int j = 0; j < input.GetLength(1); j++)
+                {
+                    if (input[i, j] == word[1])
+                    {
+                        var intermediateCount = 0;
+                        for (int direction = 0; direction < Direction.Diagonals.Length; direction++)
+                        {
+                            var invertedDiagonals = Tuple.Create(Direction.Diagonals[direction].Item1 * (-1), Direction.Diagonals[direction].Item2 * (-1));
+                            bool isDirectionCorrect = true;
+                            var row = i + invertedDiagonals.Item1;
+                            var col = j + invertedDiagonals.Item2;
+                            for (int charIndex = 0; charIndex < word.Length; charIndex++)
+                            {
+                                var positionRow = row + Direction.Diagonals[direction].Item1 * charIndex;
+                                var positionCol = col + Direction.Diagonals[direction].Item2 * charIndex;
+                                if (positionRow < 0 ||
+                                    positionRow >= input.GetLength(0) ||
+                                    positionCol < 0 ||
+                                    positionCol >= input.GetLength(1) ||
+                                    input[positionRow, positionCol] != word[charIndex]
+                                    )
+                                {
+                                    isDirectionCorrect = false;
+                                    break;
+                                }
+                            }
+                            if (isDirectionCorrect)
+                            {
+                                intermediateCount++;
+                            }
+                        }
+                        if(intermediateCount == 2)
+                        {
+                            count++;
+                        }
+                    }
+                }
+            }
+            return count;
+        }
     }
 }

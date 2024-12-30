@@ -12,7 +12,7 @@ class Program
         Day4 day4 = new Day4();
         var stopWatch = new Stopwatch();
         stopWatch.Start();
-        var res = await day4.SolutionPart1Async(sr);
+        var res = await day4.SolutionPart2Async(sr);
         stopWatch.Stop();
         Console.WriteLine(res);
         Console.WriteLine($"Execution Time = {stopWatch.Elapsed}");

@@ -13,5 +13,12 @@
             Tuple.Create(1, -1),
             Tuple.Create(1, 1),
         };
+        public static Tuple<int, int>[] Diagonals { get; } =
+        {
+            Tuple.Create(-1, 1),
+            Tuple.Create(-1, -1),
+            Tuple.Create(1, -1),
+            Tuple.Create(1, 1),
+        };
     }
 }
